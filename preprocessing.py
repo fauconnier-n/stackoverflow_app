@@ -1,5 +1,5 @@
 """
-Liste de expressions anglaises contractées et de leurs formes non-contractées
+Fonctions de preprocessing du texte en entrée de l'app
 """
 
 import spacy
