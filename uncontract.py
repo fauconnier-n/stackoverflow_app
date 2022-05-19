@@ -1,4 +1,6 @@
 """
+Liste de expressions anglaises contractées et de leurs formes non-contractées
+
 Created on Mon Aug 01 01:11:02 2016
 @author: DIP
 """
