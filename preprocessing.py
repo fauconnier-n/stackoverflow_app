@@ -1,3 +1,6 @@
+"""
+Liste de expressions anglaises contractées et de leurs formes non-contractées
+"""
 
 import spacy
 import pandas as pd
@@ -7,6 +10,7 @@ from nltk.tokenize.toktok import ToktokTokenizer
 import re
 from bs4 import BeautifulSoup
 import unicodedata
+import uncontract
 
 def remove_code(text):
     """
