@@ -41,9 +41,28 @@ def get_proba(data: stackoverflow_question):
     return proba
 
 
-#@app.post('/prediction')
-#def get_prediction(data: SO_post):
+@app.post('/prediction')
+def get_prediction(data: stackoverflow_question):
 
+    received = data.dict()
+
+    concat_inputs = received["Title"] + " " + received["Body"]
+    
+    normalized_inputs = normalize_corpus(concat_inputs)
+
+    pred_tags = model.predict([normalized_inputs])   
+
+    zip_tags = zip(
+        classes, 
+        pred_tags[0])
+    
+    predicted_tags = dict(zip_tags)
+
+    list_predicted = [k for k,v in predicted_tags.items() if v == 1]
+
+    predicted = { 'predicted_tags' : list_predicted}
+
+    return predicted
 
 
 if __name__ == '__main__':
