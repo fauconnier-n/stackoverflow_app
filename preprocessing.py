@@ -2,15 +2,16 @@
 Fonctions de preprocessing du texte en entrée de l'app
 """
 
-import spacy
-import pandas as pd
-import numpy as np
+import re
+import unicodedata
+#import pandas as pd
+#import numpy as np
 import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
-import re
 from bs4 import BeautifulSoup
-import unicodedata
-import uncontract
+import spacy
+from uncontract import CONTRACTION_MAP
+
 
 def remove_code(text):
     """
@@ -48,7 +49,7 @@ def remove_accented_chars(text):
 
 
 def expand_contractions(text, contraction_mapping=CONTRACTION_MAP):
-    """ 
+    """
     Remplace les expressions anglaises contractées (eg. "I've") par leur forme non contractée (eg. "I have")
     """
     contractions_pattern = re.compile('({})'.format('|'.join(contraction_mapping.keys())), 
@@ -76,7 +77,7 @@ def remove_special_characters(text, remove_digits=False):
     return text
 
 def simple_stemmer(text):
-    """ 
+    """
     Stemme le texte
     """
     ps = nltk.porter.PorterStemmer()
@@ -85,14 +86,14 @@ def simple_stemmer(text):
 
 def lemmatize_text(text):
     """
-    Lemmatize le texte 
+    Lemmatize le texte
     """
     text = nlp(text)
     text = ' '.join([word.lemma_ if word.lemma_ != '-PRON-' else word.text for word in text])
     return text
 
 def remove_stopwords(text, is_lower_case=False):
-    """ 
+    """
     Retire les stopwords
     """
     tokens = tokenizer.tokenize(text)
@@ -111,12 +112,13 @@ def tok(text):
     tokenizer = ToktokTokenizer()
     return tokenizer.tokenize(text)
 
-def normalize_corpus(corpus, html_stripping=True, contraction_expansion=True,
+def normalize_corpus(doc, code_stripping=True,
+                     html_stripping=True, contraction_expansion=True,
                      accented_char_removal=True, text_lower_case=True, 
                      text_lemmatization=True, special_char_removal=True, 
                      stopword_removal=True, remove_digits=True):
     """
-    Fonction aggrégeant les différentes fonctions de preprocess
+    Fonction aggrégeant les différentes fonctions de preprocessing du texte en entrée
 
     Args:
         corpus (strings): texte à préprocesser
@@ -132,38 +134,36 @@ def normalize_corpus(corpus, html_stripping=True, contraction_expansion=True,
     Returns:
         string: texte préprocessé
     """
-    normalized_corpus = []
-    # normalize each document in the corpus
-    for doc in corpus:
-        # strip HTML
-        if html_stripping:
-            doc = strip_html_tags(doc)
-        # remove accented characters
-        if accented_char_removal:
-            doc = remove_accented_chars(doc)
-        # expand contractions    
-        if contraction_expansion:
-            doc = expand_contractions(doc)
-        # lowercase the text    
-        if text_lower_case:
-            doc = doc.lower()
-        # remove extra newlines
-        doc = re.sub(r'[\r|\n|\r\n]+', ' ',doc)
-        # lemmatize text
-        if text_lemmatization:
-            doc = lemmatize_text(doc)
-        # remove special characters and\or digits    
-        if special_char_removal:
-            # insert spaces between special characters to isolate them    
-            special_char_pattern = re.compile(r'([{.(-)!}])')
-            doc = special_char_pattern.sub(" \\1 ", doc)
-            doc = remove_special_characters(doc, remove_digits=remove_digits)  
-        # remove extra whitespace
-        doc = re.sub(' +', ' ', doc)
-        # remove stopwords
-        if stopword_removal:
-            doc = remove_stopwords(doc, is_lower_case=text_lower_case)
-            
-        normalized_corpus.append(doc)
-        
-    return normalized_corpus
+    # Remove the code
+    if code_stripping:
+        doc = remove_code(doc)
+    # strip HTML
+    if html_stripping:
+        doc = strip_html_tags(doc)
+    # remove accented characters
+    if accented_char_removal:
+        doc = remove_accented_chars(doc)
+    # expand contractions    
+    if contraction_expansion:
+        doc = expand_contractions(doc)
+    # lowercase the text    
+    if text_lower_case:
+        doc = doc.lower()
+    # remove extra newlines
+    doc = re.sub(r'[\r|\n|\r\n]+', ' ',doc)
+    # lemmatize text
+    if text_lemmatization:
+        doc = lemmatize_text(doc)
+    # remove special characters and\or digits    
+    if special_char_removal:
+        # insert spaces between special characters to isolate them    
+        special_char_pattern = re.compile(r'([{.(-)!}])')
+        doc = special_char_pattern.sub(" \\1 ", doc)
+        doc = remove_special_characters(doc, remove_digits=remove_digits)  
+    # remove extra whitespace
+    doc = re.sub(' +', ' ', doc)
+    # remove stopwords
+    if stopword_removal:
+        doc = remove_stopwords(doc, is_lower_case=text_lower_case)
+
+    return doc
