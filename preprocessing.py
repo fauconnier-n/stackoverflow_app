@@ -1,7 +1,7 @@
 """
 Fonctions de preprocessing du texte en entrée de l'app
 """
-
+# Imports
 import re
 import unicodedata
 import nltk
@@ -19,8 +19,8 @@ def remove_code(text):
 
     return cleaned_text
 
-""" les fonctions suivantes proviennent de cet article 
-https://towardsdatascience.com/a-practitioners-guide-to-natural-language-processing-part-i-processing-understanding-text-9f4abfd13e72"""
+# les fonctions suivantes proviennent de cet article:
+# https://towardsdatascience.com/a-practitioners-guide-to-natural-language-processing-part-i-processing-understanding-text-9f4abfd13e72
 
 # éléments nécessaires aux fonctions de preprocessing
 nltk.download('stopwords')
