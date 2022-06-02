@@ -15,6 +15,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from preprocessing import normalize_corpus
 
+# Défini le format d'input des endpoints
 class stackoverflow_question(BaseModel):
     Title: str
     Body: str
@@ -32,6 +33,16 @@ with open("/ressources/classes.pkl", "rb") as f:
 
 @app.post('/proba')
 def get_proba(data: stackoverflow_question):
+    """
+    Endpoint permettant d'obtenir la probabilité de chacun des 50 tags
+    les plus communs sur StackOverflow pour la question
+
+    Args:
+        data (stackoverflow_question): Titre et Corps de la question StackOverflow
+
+    Returns:
+        JSON: probabilité pour chaque tag
+    """
 
     received = data.dict()
 
@@ -53,11 +64,19 @@ def get_proba(data: stackoverflow_question):
 
 @app.post('/prediction')
 def get_prediction(data: stackoverflow_question):
+    """
+    Endpoint permettant d'obtenir les tags prédits (P>0.5)
 
+    Args:
+        data (stackoverflow_question): Titre et Corps de la question StackOverflow
+
+    Returns:
+        JSON: tags prédits
+    """
     received = data.dict()
 
     concat_inputs = received["Title"] + " " + received["Body"]
-    
+
     normalized_inputs = normalize_corpus(concat_inputs)
 
     pred_tags = model.predict([normalized_inputs])   
@@ -65,7 +84,7 @@ def get_prediction(data: stackoverflow_question):
     zip_tags = zip(
         classes, 
         pred_tags[0])
-    
+
     predicted_tags = dict(zip_tags)
 
     list_predicted = [k for k,v in predicted_tags.items() if v == 1]
