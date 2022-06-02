@@ -1,5 +1,5 @@
 """
-REST API
+REST API Prédiction de tags StackOverflow
 
 Input: Json contenant le titre et le corps d'une question StackOverflow
 
@@ -15,8 +15,11 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from preprocessing import normalize_corpus
 
-# Défini le format d'input des endpoints
+
 class stackoverflow_question(BaseModel):
+    """
+    Défini le format d'input
+    """
     Title: str
     Body: str
 
