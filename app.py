@@ -1,3 +1,13 @@
+"""
+REST API
+
+Input: Json contenant le titre et le corps d'une question StackOverflow
+
+2 points d'entrée:
+- /proba: retourne la probabilité de chacun des 50 tags les plus commun pour la question soumise
+- /prediction: retourne les tags prédits pour la question soumise
+"""
+
 import pickle
 import numpy as np
 import uvicorn
