@@ -4,8 +4,6 @@ Fonctions de preprocessing du texte en entrée de l'app
 
 import re
 import unicodedata
-#import pandas as pd
-#import numpy as np
 import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
 from bs4 import BeautifulSoup
