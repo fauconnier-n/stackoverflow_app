@@ -8,6 +8,7 @@ Input: Json contenant le titre et le corps d'une question StackOverflow
 - /prediction: retourne les tags prédits pour la question soumise
 """
 
+# Imports
 import pickle
 import numpy as np
 import uvicorn
@@ -15,6 +16,11 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from preprocessing import normalize_corpus
 
+# éléments nécessaires aux fonctions de preprocessing
+nltk.download('stopwords')
+nlp = spacy.load('en_core_web_sm')
+tokenizer = ToktokTokenizer()
+stopword_list = nltk.corpus.stopwords.words('english')
 
 class stackoverflow_question(BaseModel):
     """
