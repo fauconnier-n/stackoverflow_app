@@ -21,6 +21,7 @@ import preprocessing
 
 # éléments nécessaires aux fonctions de preprocessing
 nltk.download('stopwords')
+spacy.cli.download("en_core_web_sm")
 nlp = spacy.load('en_core_web_sm')
 #tokenizer = ToktokTokenizer()
 stopword_list = nltk.corpus.stopwords.words('english')
