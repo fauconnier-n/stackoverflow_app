@@ -76,14 +76,6 @@ def remove_special_characters(text, remove_digits=False):
     text = re.sub(pattern, '', text)
     return text
 
-def simple_stemmer(text):
-    """
-    Stemme le texte
-    """
-    ps = nltk.porter.PorterStemmer()
-    text = ' '.join([ps.stem(word) for word in text.split()])
-    return text
-
 def lemmatize_text(text):
     """
     Lemmatize le texte
