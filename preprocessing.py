@@ -8,6 +8,7 @@ import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
 from bs4 import BeautifulSoup
 import spacy
+import en_core_web_sm
 from uncontract import CONTRACTION_MAP
 
 
