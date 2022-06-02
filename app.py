@@ -22,11 +22,11 @@ class stackoverflow_question(BaseModel):
 app = FastAPI()
 
 # Charge le pipeline sklearn (TF-IDF + MultiOutputClassifier avec Reg Log)
-with open("model.pkl", "rb") as f:
+with open("/ressources/model.pkl", "rb") as f:
     model = pickle.load(f)
 
 # Charge la liste des classes (venant du MultiLabelBinarizer)
-with open("classes.pkl", "rb") as f:
+with open("/ressources/classes.pkl", "rb") as f:
     classes = pickle.load(f)
 
 
