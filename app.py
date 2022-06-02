@@ -17,6 +17,7 @@ import spacy
 from fastapi import FastAPI
 from pydantic import BaseModel
 from preprocessing import normalize_corpus
+import preprocessing
 
 # éléments nécessaires aux fonctions de preprocessing
 nltk.download('stopwords')
