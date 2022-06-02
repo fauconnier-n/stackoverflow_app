@@ -13,7 +13,6 @@ import pickle
 import numpy as np
 import uvicorn
 import nltk
-import en_core_web_sm
 import spacy
 from fastapi import FastAPI
 from pydantic import BaseModel
