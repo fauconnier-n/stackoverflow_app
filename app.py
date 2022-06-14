@@ -28,7 +28,7 @@ stopword_list = nltk.corpus.stopwords.words('english')
 
 class stackoverflow_question(BaseModel):
     """
-    Défini le format d'input
+    StackOverflow question to predict must follow this format
     """
     Title: str
     Body: str
