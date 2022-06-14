@@ -1,6 +1,6 @@
 # REST API tags StackOverflow
 
-For a StackOverflow question and its title:
+For a StackOverflow question and its title, gives:
 - the probabilities of the top 50 tags on website
 - the list of the predicted tags (P>0.5)
 
