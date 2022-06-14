@@ -44,7 +44,7 @@ with open("ressources/classes.pkl", "rb") as f:
     classes = pickle.load(f)
 
 
-@app.post('/proba')
+@app.post('/proba', summary="Retourne la probabilité des 50 tags les plus communs")
 def get_proba(data: stackoverflow_question):
     """
     Endpoint permettant d'obtenir la probabilité de chacun des 50 tags
@@ -75,10 +75,10 @@ def get_proba(data: stackoverflow_question):
     return proba
 
 
-@app.post('/prediction')
+@app.post('/prediction', summary="Retourne une liste des tags prédits")
 def get_prediction(data: stackoverflow_question):
     """
-    Endpoint permettant d'obtenir les tags prédits (P>0.5)
+    Endpoint permettant d'obtenir une list des tags prédits (P>0.5)
 
     Args:
         data (stackoverflow_question): Titre et Corps de la question StackOverflow
