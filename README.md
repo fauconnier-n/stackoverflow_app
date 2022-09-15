@@ -1,8 +1,8 @@
 # REST API tags StackOverflow
 
 For a StackOverflow question and its title, gives:
-- the probabilities of the top 50 tags on website
-- the list of the predicted tags (P>0.5)
+- the probabilities of the top 50 most popular tags on the website
+- the list of the predicted tags (output a list of every tag for which P>0.5)
 
 Made with [FastAPI](https://fastapi.tiangolo.com/), deployed on [Heroku](https://www.heroku.com/). 
 
