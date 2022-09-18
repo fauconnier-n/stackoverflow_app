@@ -1,6 +1,6 @@
-# A REST API returning predicted StackOverflow tags
+# A REST API that returns the predicted tags of a StackOverflow question
 
-For a StackOverflow question and its associated title, gives:
+For a StackOverflow question and its associated title, returns:
 - the probabilities of the top 50 most popular tags on the website
 - the list of the predicted tags (output a list of every tag for which P>0.5)
 
