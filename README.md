@@ -1,4 +1,4 @@
-# A REST API predicting StackOverflow tags
+# A REST API returning predicted StackOverflow tags
 
 For a StackOverflow question and its associated title, gives:
 - the probabilities of the top 50 most popular tags on the website
